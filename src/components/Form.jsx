@@ -27,6 +27,7 @@ export default function Form(props) {
       <form onSubmit={e => {
         e.preventDefault();
         props.onSubmit(formState);
+        setFormState({});
       }}>
         {props.children}
       </form>
@@ -38,10 +39,10 @@ export function FormInput(props) {
   const formContext = useContext(FormContext)
   const onChange = formContext.changeField(props.name);
   return (
-    <div class="form-group">
-      <label class="col-form-label">{props.label}</label>
+    <div className="form-group">
+      <label className="col-form-label">{props.label}</label>
       <input
-        class={props.className ? `form-control ${props.className}` : "form-control"}
+        className={props.className ? `form-control ${props.className}` : "form-control"}
         type={props.type}
         required={props.required}
         name={props.name}
@@ -58,10 +59,10 @@ export function FormSelect(props) {
   const formContext = useContext(FormContext)
   const onChange = formContext.changeField(props.name);
   return (
-    <div class="form-group">
-      <label class="col-form-label">{props.label}</label>
+    <div className="form-group">
+      <label className="col-form-label">{props.label}</label>
       <select
-        class="form-control"
+        className="form-control"
         type={props.type}
         required={props.required}
         name={props.name}
@@ -73,7 +74,7 @@ export function FormSelect(props) {
         {
           props.data.map(element => {
             return (
-              <option value={element.value}>{element.label}</option>
+              <option key={element.value} value={element.value}>{element.label}</option>
             )
           })
         }
@@ -81,6 +82,24 @@ export function FormSelect(props) {
     </div>
   )
 }
-
+export function FormTextArea(props) {
+  const formContext = useContext(FormContext)
+  const onChange = formContext.changeField(props.name);
+  return (
+    <div className="form-group">
+      <label className="col-form-label">{props.label}</label>
+      <textarea
+        className={props.className ? `form-control ${props.className}` : "form-control"}
+        required={props.required}
+        name={props.name}
+        onChange={e => {
+          onChange(e.currentTarget.value);
+        }}
+        value={formContext.formState[props.name]}
+      ></textarea>
+    </div>
+  )
+}
 Form.Input = FormInput;
 Form.Select = FormSelect
+Form.TextArea = FormTextArea
