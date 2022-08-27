@@ -3,6 +3,10 @@ import './App.css';
 import { useState } from 'react';
 import LoginPage from './components/LoginPage';
 import axios from 'axios';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import TasksPage from './components/TasksPage';
+import CreateTaskPage from './components/CreateTaskPage';
+import Navbar from './components/Navbar';
 axios.defaults.baseURL = 'http://localhost:8000'
 function App() {
   const [user, setUser] = useState(undefined);
@@ -16,22 +20,13 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path='/new' element={(<CreateTaskPage />)} />
+        <Route path='/' element={(<TasksPage />)} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
