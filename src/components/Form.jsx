@@ -41,7 +41,7 @@ export function FormInput(props) {
     <div class="form-group">
       <label class="col-form-label">{props.label}</label>
       <input
-        class="form-control"
+        class={props.className ? `form-control ${props.className}` : "form-control"}
         type={props.type}
         required={props.required}
         name={props.name}

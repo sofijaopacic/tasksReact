@@ -1,7 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
-
+import { useState } from 'react';
+import LoginPage from './components/LoginPage';
+import axios from 'axios';
+axios.defaults.baseURL = 'http://localhost:8000'
 function App() {
+  const [user, setUser] = useState(undefined);
+
+  if (!user) {
+    return (
+      <LoginPage
+        setUser={setUser}
+      />
+    )
+  }
+
   return (
     <div className="App">
       <header className="App-header">
